@@ -64,6 +64,7 @@ int main(int argc, char* argv[]) {
 			printf("pcap_next_ex return %d(%s)\n", res, pcap_geterr(pcap));
 			break;
 		}
+		printf("%u bytes captured\n", header->caplen);
 
 		struct libnet_ethernet_hdr* eth_hdr = (struct libnet_ethernet_hdr*)packet;
 		if (ntohs(eth_hdr->ether_type) != ETHERTYPE_IP) continue;
@@ -73,7 +74,6 @@ int main(int argc, char* argv[]) {
 
 		//struct libnet_tcp_hdr *tcp_hdr = (struct libnet_tcp_hdr *)(packet + sizeof(struct libnet_ethernet_hdr) + sizeof(struct libnet_ipv4_hdr));
 		struct libnet_tcp_hdr* tcp_hdr = (struct libnet_tcp_hdr*)(packet + sizeof(struct libnet_ethernet_hdr) + ip_hdr->ip_hl * 4);
-		printf("%u bytes captured\n", header->caplen);
 
 		printf("Ethernet Header\n");
 		printf("Src MAC: "); print_mac_address(eth_hdr->ether_shost); printf("\n");
