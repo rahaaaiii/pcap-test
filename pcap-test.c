@@ -90,7 +90,11 @@ int main(int argc, char* argv[]) {
 		printf("Payload (Hex): ");
 		const u_char* payload = (packet + sizeof(struct libnet_ethernet_hdr) + ip_hdr->ip_hl * 4 + tcp_hdr->th_off * 4);
 		int payload_size = ntohs(ip_hdr->ip_len) - (ip_hdr->ip_hl * 4 + tcp_hdr->th_off * 4);
-		print_data(payload, payload_size);
+		if (payload_size > 0) {
+		    print_data(payload, payload_size);
+		} else {
+		    printf("None\n");
+		}
 
 		printf("\n");
 	}
