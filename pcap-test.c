@@ -73,6 +73,7 @@ int main(int argc, char* argv[]) {
 
 		//struct libnet_tcp_hdr *tcp_hdr = (struct libnet_tcp_hdr *)(packet + sizeof(struct libnet_ethernet_hdr) + sizeof(struct libnet_ipv4_hdr));
 		struct libnet_tcp_hdr* tcp_hdr = (struct libnet_tcp_hdr*)(packet + sizeof(struct libnet_ethernet_hdr) + ip_hdr->ip_hl * 4);
+		printf("%u bytes captured\n", header->caplen);
 
 		printf("Ethernet Header\n");
 		printf("Src MAC: "); print_mac_address(eth_hdr->ether_shost); printf("\n");
